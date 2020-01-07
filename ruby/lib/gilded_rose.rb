@@ -7,7 +7,9 @@ class GildedRose
   def update_quality
     @items.each do |item|
 
-      update_sellin(item)
+      update_sell_in(item)
+
+      update_brie_quality(item)
 
       ##Normal items
       #reduce quality of all normal items by 1 (if quality is more than 0)
@@ -18,43 +20,36 @@ class GildedRose
         elsif item.quality > 0
           item.quality -= 1
         end
+      end
 
+      if item.name == "Backstage passes to a TAFKAL80ETC concert"
 
-
-      else
-        ##Aged Brie && Backstage
-        #increase quality by 1 if Aged Brie or Backstage passes
-        if item.quality < 50
+        item.quality += 1
+            
+        if item.sell_in < 11
           item.quality += 1
-
-          ##Backstage
-
-          #increase quality by a further 1 if in less than 10 days
-          if item.name == "Backstage passes to a TAFKAL80ETC concert"
-
-            
-            if item.sell_in < 11
-              item.quality += 1
-            end
-
-            if item.sell_in < 6
-              item.quality += 1
-            end
-
-            if item.sell_in < 0
-              item.quality -= item.quality
-            end
-            
-          end
         end
 
+        if item.sell_in < 6
+          item.quality += 1
+        end
+
+        if item.sell_in < 0
+          item.quality -= item.quality
+        end
+            
       end
     end
   end
 
-  def update_sellin(item)
+  def update_sell_in(item)
     item.sell_in -= 1 unless item.name == "Sulfuras, Hand of Ragnaros"
   end
+
+  def update_brie_quality(item)
+    item.quality += 1 if (item.name == "Aged Brie" && item.quality < 50)
+  end
+
 end
 
 class Item
