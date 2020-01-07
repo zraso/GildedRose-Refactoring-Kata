@@ -34,16 +34,12 @@ class GildedRose
           #increase quality by a further 1 if in less than 10 days
           if item.name == "Backstage passes to a TAFKAL80ETC concert"
             if item.sell_in < 11
-              if item.quality < 50
                 item.quality += 1
-              end
             end
             ##Backstage
             #increase quality by a further 1 if in less than 5 days
             if item.sell_in < 6
-              if item.quality < 50
-                item.quality += 1
-              end
+              item.quality += 1
             end
 
             if item.sell_in < 0
