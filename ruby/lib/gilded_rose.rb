@@ -8,17 +8,9 @@ class GildedRose
   def update_quality
     @items.each do |item|
       update_sell_in(item)
-
       update_brie_quality(item)
-
       update_normal_quality(item) if normal?(item)
-
-      if backstage?(item)
-        item.quality += 1
-        item.quality += 1 if item.sell_in < 11
-        item.quality += 1 if item.sell_in < 6
-        item.quality -= item.quality if item.sell_in < 0
-      end
+      update_backstage_quality(item) if backstage?(item)
     end
   end
 
@@ -26,7 +18,6 @@ class GildedRose
     item.sell_in -= 1 unless item.name == 'Sulfuras, Hand of Ragnaros'
   end
 
-  # #The item.quality < 50 bit is hacky. We need a method that checks if quality is under 50 and only updates if so
   def update_brie_quality(item)
     item.quality += 1 if item.name == 'Aged Brie' && item.quality < 50
   end
@@ -34,6 +25,13 @@ class GildedRose
   def update_normal_quality(item)
     item.quality -= 1 if item.quality > 0
     item.quality -= 1 if item.quality > 0 && item.sell_in < 0
+  end
+
+  def update_backstage_quality(item)
+    item.quality += 1
+    item.quality += 1 if item.sell_in < 11
+    item.quality += 1 if item.sell_in < 6
+    item.quality -= item.quality if item.sell_in < 0
   end
 
   def normal?(item)
