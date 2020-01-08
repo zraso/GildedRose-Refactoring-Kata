@@ -8,9 +8,10 @@ class GildedRose
   def update_quality
     @items.each do |item|
       update_sell_in(item)
-      update_brie_quality(item)
-      update_normal_quality(item) if normal?(item)
+      update_brie_quality(item) if brie?(item)
       update_backstage_quality(item) if backstage?(item)
+      update_conjured_quality(item) if conjured?(item)
+      update_normal_quality(item) if normal?(item)
     end
   end
 
@@ -19,7 +20,7 @@ class GildedRose
   end
 
   def update_brie_quality(item)
-    item.quality += 1 if item.name == 'Aged Brie' && item.quality < 50
+    item.quality += 1
   end
 
   def update_normal_quality(item)
@@ -34,12 +35,24 @@ class GildedRose
     item.quality -= item.quality if item.sell_in < 0
   end
 
+  def update_conjured_quality(item)
+    item.quality -= 2
+  end
+
   def normal?(item)
-    item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert' && item.name != 'Sulfuras, Hand of Ragnaros'
+    item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert' && item.name != 'Sulfuras, Hand of Ragnaros' && item.name != 'Conjured Mana Cake'
+  end
+
+  def brie?(item)
+    item.name == 'Aged Brie' && item.quality < 50
   end
 
   def backstage?(item)
     item.name == 'Backstage passes to a TAFKAL80ETC concert'
+  end
+
+  def conjured?(item)
+    item.name == 'Conjured Mana Cake'
   end
 end
 

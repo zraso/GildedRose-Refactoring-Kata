@@ -9,11 +9,11 @@ describe GildedRose do
               Item.new('Aged Brie', 10, 6),
               Item.new('Aged Brie', 10, 50),
               Item.new('Sulfuras, Hand of Ragnaros', 0, 80),
-              Item.new(name = 'Backstage passes to a TAFKAL80ETC concert', 15, 20),
-              Item.new(name = 'Backstage passes to a TAFKAL80ETC concert', 9, 20),
-              Item.new(name = 'Backstage passes to a TAFKAL80ETC concert', 3, 20),
-              Item.new(name = 'Backstage passes to a TAFKAL80ETC concert', 0, 0),
-              Item.new(name = 'Conjured Mana Cake', 3, 6)]
+              Item.new('Backstage passes to a TAFKAL80ETC concert', 15, 20),
+              Item.new('Backstage passes to a TAFKAL80ETC concert', 9, 20),
+              Item.new('Backstage passes to a TAFKAL80ETC concert', 3, 20),
+              Item.new('Backstage passes to a TAFKAL80ETC concert', 0, 0),
+              Item.new('Conjured Mana Cake', 3, 6)]
     GildedRose.new(@items).update_quality
   end
 
@@ -72,10 +72,10 @@ describe GildedRose do
       end
     end
 
-    # context "when the item is Conjured" do
-    #   it "degrades in quality by 2" do
-    #     expect(@items[9].quality).to eq 4
-    #   end
-    # end
+    context "when the item is Conjured" do
+      it "degrades in quality by 2" do
+        expect(@items[9].quality).to eq 4
+      end
+    end
   end
 end
