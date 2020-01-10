@@ -13,17 +13,19 @@ class ItemsChecker
     @item = item
   end
 
-  def type
-    if item.name == 'Aged Brie' && item.quality < 50
-      return AgeingItems.new(item)
-    elsif item.name == 'Backstage passes to a TAFKAL80ETC concert'
-      return BackstageItems.new(item)
-    elsif item.name == 'Sulfuras, Hand of Ragnaros'
-      return LegendaryItems.new(item)
-    elsif item.name == 'Conjured Mana Cake'
-      return ConjuredItems.new(item)
-    else
+  def generate_type
+
+    types = {
+      "Aged Brie" => AgeingItems,
+      "Backstage passes to a TAFKAL80ETC concert" => BackstageItems,
+      "Sulfuras, Hand of Ragnaros" => LegendaryItems,
+      "Conjured Mana Cake" => ConjuredItems
+    }
+
+    if types[item.name].nil?
       return NormalItems.new(item)
+    else
+      return types[item.name].new(item)
     end
   end
 end

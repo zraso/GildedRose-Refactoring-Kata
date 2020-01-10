@@ -12,11 +12,9 @@ class GildedRose
 
   def update_quality
     @items.each do |item|
-      categorised_item = ItemsChecker.new(item).type
-      if item.quality < 50
-        categorised_item.update_sell_in
-        categorised_item.update_quality
-      end
+      categorised_item = ItemsChecker.new(item).generate_type
+      categorised_item.update_sell_in
+      categorised_item.update_quality if item.quality < MAX_QUALITY
     end
   end
 
